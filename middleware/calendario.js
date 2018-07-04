@@ -35,45 +35,48 @@ const noLaborables = (req, res, next) => {
 
 
 const externoCalendarioCSA = (req, res, next) => {
-  const finishing = randomDateTime();
-  const starting = randomDateTime(finishing);
-
-  res.locals.externoCalendarioCSA = externoCalendarioCSASamples.map(t => ({
-    ...t,
-    fechaComienzo: format(starting, 'YYYY-MM-DD'),
-    tiempoComienzo: format(finishing, 'HH:mm:ss'),
-    fechaFin: format(finishing, 'YYYY-MM-DD'),
-    tiempoFin: format(finishing, 'HH-mm-ss'),
-  }));
-  next();
-}
-
-const eventosCalendario = (req, res, next) => {
-  const finishing = randomDateTime();
-  const starting = randomDateTime(finishing);
-
-  res.locals.eventosCalendario = eventosCalendarioSamples.map(t => ({
-    ...t,
-    fechaComienzo: format(starting, 'YYYY-MM-DD'),
-    tiempoComienzo: format(finishing, 'HH:mm:ss'),
-    fechaFin: format(finishing, 'YYYY-MM-DD'),
-    tiempoFin: format(finishing, 'HH-mm-ss'),
-  }));
-  next();
-}
-
-const calendarioPlanificacion = (req, res, next) => {
-  const finishing = randomDateTime();
-  const starting = randomDateTime(finishing);
-
-  res.locals.calendarioPlanificacion = {
-    eventos: calendarioPlanificacionSamples.eventos.map(t => ({
+  res.locals.externoCalendarioCSA = externoCalendarioCSASamples.map((t) => {
+    const finishing = randomDateTime();
+    const starting = randomDateTime(finishing);
+    return {
       ...t,
       fechaComienzo: format(starting, 'YYYY-MM-DD'),
       tiempoComienzo: format(finishing, 'HH:mm:ss'),
       fechaFin: format(finishing, 'YYYY-MM-DD'),
-      tiempoFin: format(finishing, 'HH-mm-ss'),
-    })),
+      tiempoFin: format(finishing, 'HH:mm:ss'),
+    };
+  });
+  next();
+}
+
+const eventosCalendario = (req, res, next) => {
+  res.locals.eventosCalendario = eventosCalendarioSamples.map((t) => {
+    const finishing = randomDateTime();
+    const starting = randomDateTime(finishing);
+    return {
+      ...t,
+      fechaComienzo: format(starting, 'YYYY-MM-DD'),
+      tiempoComienzo: format(finishing, 'HH:mm:ss'),
+      fechaFin: format(finishing, 'YYYY-MM-DD'),
+      tiempoFin: format(finishing, 'HH:mm:ss'),
+    };
+  });
+  next();
+}
+
+const calendarioPlanificacion = (req, res, next) => {
+  res.locals.calendarioPlanificacion = {
+    eventos: calendarioPlanificacionSamples.eventos.map((t) => {
+      const finishing = randomDateTime();
+      const starting = randomDateTime(finishing);
+      return {
+        ...t,
+        fechaComienzo: format(starting, 'YYYY-MM-DD'),
+        tiempoComienzo: format(finishing, 'HH:mm:ss'),
+        fechaFin: format(finishing, 'YYYY-MM-DD'),
+        tiempoFin: format(finishing, 'HH:mm:ss'),
+      };
+    }),
     remanentes: calendarioPlanificacionSamples.remanentes,
   };
   next();

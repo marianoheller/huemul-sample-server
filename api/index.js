@@ -37,8 +37,8 @@ module.exports = () => {
     res.json(res.locals.calendarioPlanificacion);
   });
 
-  api.get('/externo/planificacion/eventos', eventosCalendario, (req, res) => {
-    res.json(res.locals.eventosCalendario);
+  api.get('/externo/planificacion/eventos', externoCalendarioCSA, (req, res) => {
+    res.json(res.locals.externoCalendarioCSA);
   });
   
   api.get('/trabajos', trabajos, (req, res) => {
