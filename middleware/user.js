@@ -10,9 +10,16 @@ const gitInfo = (req, res, next) => {
   next();
 };
 
-
 const userInfo = (req, res,next) => {
   res.locals.user = sampleUserInfo;
+  next();
+};
+
+const autenticacion = (req, res,next) => {
+  res.locals.autenticacion = {
+    token: 'akjsdkasjdasdnaskdnaskjn',
+    usuarioId: 123,
+  };
   next();
 };
 
@@ -20,4 +27,5 @@ const userInfo = (req, res,next) => {
 module.exports = {
   gitInfo,
   userInfo,
+  autenticacion,
 };

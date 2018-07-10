@@ -1,7 +1,7 @@
 const { version } = require('../package.json');
 const { Router } = require('express');
 
-const { gitInfo, userInfo } = require('../middleware/user');
+const { gitInfo, userInfo, autenticacion } = require('../middleware/user');
 const { contactosTodos, clientesActivos, clientesTodos } = require('../middleware/agenda');
 const { calendarioPlanificacion, eventosCalendario, externoCalendarioCSA } = require('../middleware/calendario');
 const { trabajos } = require('../middleware/trabajos');
@@ -15,6 +15,10 @@ module.exports = () => {
   
   api.get('/gitinfo', gitInfo,(req, res) => {
 		res.json(res.locals.gitInfo);
+  });
+
+  api.post('/autenticacion', autenticacion,(req, res) => {
+		res.json(res.locals.autenticacion);
   });
   
   api.get('/usuarios/:id', userInfo, gitInfo,(req, res) => {

@@ -49,10 +49,15 @@ const trabajos = (req, res, next) => {
   const randomDay = () => Math.ceil(28*Math.random());
 
   res.locals.trabajos = trabajosSamples.filter(t => {
-    if (parsedQuery.key === 'clientes' || parsedQuery.key === 'contactos') {
+    if(!t[parsedQuery.key]) {
+      console.log(`Error searching trabajo. Undefined prop: ${parsedQuery[key]}`);
+      res.locals.trabajos = [];
+      return next();
+    } else if (parsedQuery.key === 'clientes' || parsedQuery.key === 'contactos') {
       return t[parsedQuery.key].some(c => Object.values(c).some(v => v.includes(parsedQuery.value)));
     }
-    return t[parsedQuery.key].includes(parsedQuery.value)
+    const re = new RegExp(parsedQuery.value,'i');
+    return t[parsedQuery.key].match(re);
   }).map(t => ({
     ...t,
     fechaPedido: `${currentYear-Math.floor(2*Math.random())}-${randomMonth()}-${randomDay()}`,
